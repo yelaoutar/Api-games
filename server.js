@@ -196,6 +196,10 @@ app.post("/chatbot",authenticate,async(req,res)=>{
   temperature: 0,
   messages: [
     {
+      role:"system",
+      content:"Answer only about games. Keep the response to one line."
+    },
+    {
       role: "user",
       content: content
     },
@@ -203,10 +207,10 @@ app.post("/chatbot",authenticate,async(req,res)=>{
     });
     
     const result=response.choices[0].message.content;
-    res.json({replay:result})
+    res.json({reply:result})
   }catch(err){
     console.log(err.message)
-  res.sendStatus(500).json({error:"Internal server error"})
+    res.status(500).json({error:"Internal server error"})
   }
 })
 app.listen(port,()=>{
