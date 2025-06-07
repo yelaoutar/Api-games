@@ -155,6 +155,15 @@ app.get("/ByDate",(req,res)=>{
     if(gameDates.length==0)res.status(404).json({error:"This date doesnt exist"})
     else res.json(gameDates)
 })
+app.get("/dates",(req,res)=>{
+  const games=req.games;
+  let dates=games.map((game)=>{
+        return game.release_date
+    })
+    let datesNonDup=Array.from(new Set(dates.flat()))
+    res.json(datesNonDup)
+
+})
 app.post("/addGame",authenticate,(req,res)=>{
     const {name,rating,summary,genres,cover,release_date}=req.body
     const games=req.games
