@@ -187,32 +187,32 @@ app.post("/addGame",authenticate,(req,res)=>{
        return res.status(409).json({error:"the game already exist"})
     }
 })
-app.post("/chatbot",authenticate,async(req,res)=>{
-  let content=req.body.content
-  try{
-  const response = await client.chat.completions.create({
-  model: "gpt-4.1-mini",
-  max_tokens: 30,
-  temperature: 0,
-  messages: [
-    {
-      role:"system",
-      content:"Answer only about games. Keep the response to one line."
-    },
-    {
-      role: "user",
-      content: content
-    },
-    ]
-    });
+// app.post("/chatbot",authenticate,async(req,res)=>{
+//   let content=req.body.content
+//   try{
+//   const response = await client.chat.completions.create({
+//   model: "gpt-4.1-mini",
+//   max_tokens: 60,
+//   temperature: 0,
+//   messages: [
+//     {
+//       role:"system",
+//       content:"Answer only about games. Keep the response to one line."
+//     },
+//     {
+//       role: "user",
+//       content: content
+//     },
+//     ]
+//     });
     
-    const result=response.choices[0].message.content;
-    res.json({reply:result})
-  }catch(err){
-    console.log(err.message)
-    res.status(500).json({error:"Internal server error"})
-  }
-})
+//     const result=response.choices[0].message.content;
+//     res.json({reply:result})
+//   }catch(err){
+//     console.log(err.message)
+//     res.status(500).json({error:"Internal server error"})
+//   }
+// })
 app.listen(port,()=>{
     console.log("The app is listening in port "+port)
     
