@@ -152,7 +152,7 @@ app.get("/ByDate",(req,res)=>{
     const games=req.games;
     const dateG=req.query.date;
     let gameDates=games.filter(game=>game.release_date==dateG);
-    if(gameDates.length==0)res.status(404).json({error:"This date doesnt exist"})
+    if(gameDates.length==0)res.status(404).json({error:"this date doesnt exist"})
     else res.json(gameDates)
 })
 app.get("/dates",(req,res)=>{
