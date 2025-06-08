@@ -14,6 +14,12 @@ env.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const path = './gamesFixed.json';
+
+if (!fs.existsSync(path)) {
+  fs.writeFileSync(path, JSON.stringify([]));
+}
+
 
 //config ai:
 const client = new OpenAI({
