@@ -220,11 +220,6 @@ app.post("/chatbot",authenticate,async(req,res)=>{
     res.status(500).json({error:"Internal server error"})
   }
 })
-app.get("/len",(req,res)=>{
-  const games=req.games
-  const game=games.filter((game)=>game.summary.length<1000)
-  res.json(game)
-})
 app.listen(port,()=>{
     console.log("The app is listening in port "+port)
     
