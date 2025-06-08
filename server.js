@@ -114,10 +114,17 @@ app.get("/filter",async (req, res) => {
     ]
     });
     
-    const FixedName=response.choices[0].message.content;
-    const Game = games.find((game) => game.name.toLowerCase() === FixedName.toLowerCase());
-    if (!Game) return res.status(404).json({ error: "Game not found"});
-    res.json(Game);
+    const FixedName=response.choices[0].message.content.trim().replace(/^"|"$/g, "");
+    const Game = games.find((game) => game.name.toLowerCase() === gameN.toLowerCase());
+    const GameAi = games.find((game) => game.name.toLowerCase() === FixedName.toLowerCase());
+    if(GameAi){
+      return res.json(GameAi);
+    }
+    else if(Game){
+      return res.json(Game);
+    }
+    else return res.status(404).json({ error: "Game not found"});
+    
   }
   catch(err){
     console.log(err.message)
@@ -212,6 +219,11 @@ app.post("/chatbot",authenticate,async(req,res)=>{
     console.log(err.message)
     res.status(500).json({error:"Internal server error"})
   }
+})
+app.get("/len",(req,res)=>{
+  const games=req.games
+  const game=games.filter((game)=>game.summary.length<1000)
+  res.json(game)
 })
 app.listen(port,()=>{
     console.log("The app is listening in port "+port)
