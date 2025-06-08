@@ -2614,5 +2614,120 @@
     ],
     "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co3whm.jpg",
     "release_date": 2016
+  },
+  {
+    "id": 210,
+    "name": "Resident Evil Village",
+    "rating": 86,
+    "summary": "Resident Evil Village is a first person survival horror and the sequel to Resident Evil 7: Biohazard. The game maintains elements from previous Resident Evil games with players having to scavenge environments for items and manage their resources. However, it adds more action-oriented gameplay, with higher enemy counts and a greater emphasis on combat.",
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co2zpu.jpg",
+    "release_date": 2021
+  },
+  {
+    "id": 211,
+    "name": "Resident Evil 7: Biohazard",
+    "rating": 88,
+    "summary": "Resident Evil 7: Biohazard is the first game of the Resident Evil series to switch from 3rd-person to fully 1st-person perspective. A complete refresh of gameplay systems simultaneously propels the survival horror experience to another level. It is as much horror as it is survival, boosting up scare elements and minimizing downright shooting action. The game allows use of Sony's PSVR Headset to play in VR mode.",
+    "genres": [
+      "Shooter",
+      "Puzzle",
+      "Adventure"
+    ],
+    "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co8uu1.jpg",
+    "release_date": 2017
+  },
+  {
+    "id": 212,
+    "name": "Dark Souls II",
+    "rating": 90,
+    "summary": "Dark Souls II is an action role-playing game developed by FromSoftware and published by Bandai Namco Entertainment, released in March 2014. Set in the kingdom of Drangleic, players control the Bearer of the Curse, seeking to cure their undead curse. The game features challenging combat, deep lore, and a dark, atmospheric world. It introduces new mechanics like dual-wielding and a flexible character progression system, with improved multiplayer options for cooperative and PvP play.\n\nThe online servers were shut down on March 31st, 2024.",
+    "genres": [
+      "Role-playing (RPG)",
+      "Adventure"
+    ],
+    "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co2eoo.jpg",
+    "release_date": 2014
+  },
+  {
+    "id": 213,
+    "name": "Dark Souls III",
+    "rating": 86,
+    "summary": "Dark Souls III is an action role-playing game developed by FromSoftware and published by Bandai Namco Entertainment. Released in March 2016, it is the fourth entry in the Souls series and the final instalment in the Dark Souls trilogy. Set in the decaying kingdom of Lothric, players take on the role of the \"Ashen One,\" an undead warrior tasked with rekindling the First Flame to prevent the world from falling into darkness.\n\nThe game features challenging combat, intricate level design, and a deep, lore-rich narrative.",
+    "genres": [
+      "Role-playing (RPG)",
+      "Adventure"
+    ],
+    "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co1vcf.jpg",
+    "release_date": 2016
+  },
+  {
+    "id": 214,
+    "name": "FIFA Street",
+    "rating": 73,
+    "summary": "As a spin-off of the FIFA lineage, FIFA Street combines arcade action with the culture of freestyle street soccer. By removing the rules from the simulation soccer experience, FIFA Street exposes the heart of the world's beautiful game, on-the-ball flair and individual style.\n\nLeading this movement are the worlds top professional players, showing off their skills and individual style in 4-on-4 match-ups against the backdrop of global venues that represent the true culture of street soccer. In the game's dynamic 1-on-1 encounters, beating your opponent will require skill, technique, and the careful selection of specific moves. Take on the best and earn their respect, gradually building your reputation and team into an unstoppable force that leads the tide of street soccer.",
+    "genres": [
+      "Sport"
+    ],
+    "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co20b8.jpg",
+    "release_date": 2005
+  },
+  {
+    "id": 215,
+    "name": "Call of Duty: Ghosts",
+    "rating": 73,
+    "summary": "Call of Duty: Ghosts takes place following a catastrophic event that changed the global balance of powers in the world. As a result, the United States is no longer recognized as a superpower. Ten years after the event, an unseen enemy emerges as a threat, but the remnants of US special forces from every branch came together to create an elite group of soldiers known as the \"Ghosts\", who are determined to eradicate all threats to protect the weak and the remains of America.",
+    "genres": [
+      "Shooter"
+    ],
+    "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co3b15.jpg",
+    "release_date": 2013
+  },
+  {
+    "id": 216,
+    "name": "Battlefield V",
+    "rating": 77,
+    "summary": "The Battlefield series goes back to its roots in a never-before-seen portrayal of World War 2. Take on physical, all-out multiplayer with your squad in modes like the vast Grand Operations and the cooperative Combined Arms, or witness human drama set against global combat in the single player War Stories. As you fight in epic, unexpected locations across the globe, enjoy the richest and most immersive Battlefield yet.",
+    "genres": [
+      "Shooter"
+    ],
+    "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co1xbv.jpg",
+    "release_date": 2018
+  },
+  {
+    "id": 217,
+    "name": "Call of Duty: Modern Warfare III",
+    "rating": 62,
+    "summary": "The game brings \"open combat, \" offering players more choices in approaching the single-player missions. Makarov returns as the chief villain of the new campaign.\n\nThe newly introduced Carry Forward system will let players keep their progression and inventory from Modern Warfare II. Multiplayer fans can expect 16 maps at the launch and at least 12 coming later. Zombies mode will also return and should offer the largest zombie map to date.",
+    "genres": [
+      "Shooter"
+    ],
+    "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co7ctx.jpg",
+    "release_date": 2023
+  },
+  {
+    "id": 218,
+    "name": "Call of Duty: Vanguard",
+    "rating": 74,
+    "summary": "This is WWII combat like never before. Witness the origins of Special Forces as you play a pivotal role and change the face of history, forming Task Force One in a gripping Campaign across four major theaters of war. Become an original Special Forces Operator in an online Multiplayer rich in innovation with 20 maps available at launch. Prepare for a franchise-first, universe-expanding Zombies crossover. Immerse yourself in a fully integrated Call of Duty: Warzone experience featuring a new and massive map. This is the most connected Call of Duty ever, all powered by the next generation Call of Duty engine introduced in Modern Warfare.\n\nThis is Call of Duty: Vanguard.",
+    "genres": [
+      "Shooter"
+    ],
+    "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co3kq8.jpg",
+    "release_date": 2021
+  },
+  {
+    "id": 219,
+    "name": "Battlefield 2042",
+    "rating": 69,
+    "summary": "Battlefield 2042 marks the return to the iconic all-out warfare of the franchise. Adapt and overcome dynamically-changing battlegrounds with the help of your squad and a cutting-edge arsenal. With support for 128 players, prepare for unprecedented scale on vast environments. Take on massive experiences, from updated multiplayer modes like Conquest and Breakthrough to the all-new Hazard Zone.",
+    "genres": [
+      "Shooter"
+    ],
+    "cover": "//images.igdb.com/igdb/image/upload/t_1080p/co7dfn.jpg",
+    "release_date": 2021
   }
 ]
