@@ -28,21 +28,6 @@ const writeFileGame=(data)=>{
     fs.writeFileSync('gamesFixed.json', JSON.stringify(data, null, 2));
 }
 app.use(openFileGame)
-// const openFileUsers=(req,res,next)=>{
-//     try{
-//          req.users=JSON.parse(fs.readFileSync("users.json","utf-8"));
-//          res.status(200);
-//          next()
-        
-//     }catch(err){
-//         res.status(500).json({error:"failed to load"})
-//     }
-   
-// }
-
-// const WriteFileUsers=(data)=>{
-//     fs.writeFileSync('users.json', JSON.stringify(data, null, 2));
-// }
 
 
 app.post("/register",async(req,res)=>{
@@ -204,7 +189,7 @@ app.post("/chatbot",authenticate,async(req,res)=>{
   messages: [
     {
       role:"system",
-      content:"Answer only about games. Keep the response to one line."
+      content:"Answer only about games.Keep the response to one line."
     },
     {
       role: "user",
