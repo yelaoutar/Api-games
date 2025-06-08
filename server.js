@@ -97,32 +97,32 @@ app.get("/filter",async (req, res) => {
   const games = req.games;
   const gameN = req.query.name;
   if (!gameN) return res.status(400).json({ error: "Missing 'name' query parameter" });
-  // try{
-  //   const response = await client.chat.completions.create({
-  // model: "gpt-4.1-nano",
-  // max_tokens: 15,
-  // temperature: 0,
-  // messages: [
-  //   {
-  //     role: "system",
-  //     content: "Return the full correct name of a game. If unknown, return null."
-  //   },
-  //   {
-  //     role: "user",
-  //     content: gameN
-  //   }
-  //   ]
-  //   });
+  try{
+  const response = await client.chat.completions.create({
+  model: "gpt-4.1-nano",
+  max_tokens: 15,
+  temperature: 0,
+  messages: [
+    {
+      role: "system",
+      content: "Return the full correct name of a game. If unknown, return null."
+    },
+    {
+      role: "user",
+      content: gameN
+    }
+    ]
+    });
     
-    // const FixedName=response.choices[0].message.content;
-    const Game = games.find((game) => game.name.toLowerCase() === gameN.toLowerCase());
+    const FixedName=response.choices[0].message.content;
+    const Game = games.find((game) => game.name.toLowerCase() === FixedName.toLowerCase());
     if (!Game) return res.status(404).json({ error: "Game not found"});
     res.json(Game);
-  // }
-  // catch(err){
-  //   console.log(err.message)
-  //   res.sendStatus(500).json({error:"Internal server error"})
-  // }
+  }
+  catch(err){
+    console.log(err.message)
+    res.sendStatus(500).json({error:"Internal server error"})
+  }
   
 });
 app.get("/genres",(req,res)=>{
