@@ -206,6 +206,32 @@ app.post("/chatbot",authenticate,async(req,res)=>{
     res.status(500).json({error:"Internal server error"})
   }
 })
+app.patch("/updateGame",authenticate,(req,res)=>{
+  const { name, rating, summary, genres, cover, release_date } = req.body;
+  const games = req.games;
+
+  const existingGame = games.find(
+    (game) => game.name.toLowerCase() === name.toLowerCase()
+  );
+  if (!existingGame) {
+    return res.status(404).json({ error: "Game not found" });
+  }
+  const index = games.findIndex(
+    (game) => game.name.toLowerCase() === name.toLowerCase()
+  );
+  const updatedGame = {
+    ...existingGame,
+    rating: rating ?? existingGame.rating,
+    summary: summary ?? existingGame.summary,
+    genres: genres ?? existingGame.genres,
+    cover: cover ?? existingGame.cover,
+    release_date: release_date ?? existingGame.release_date,
+  };
+  games[index] = updatedGame;
+  writeFileGame(games);
+  res.json({ success: "Game updated", game: updatedGame });
+});
+
 app.listen(port,()=>{
     console.log("The app is listening in port "+port)
     

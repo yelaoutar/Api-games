@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e5e5e5;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #1f1f1f;
+            border-bottom: 1px solid #374151;
+            padding: 1rem 1.5rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header-icon {
+            width: 24px;
+            height: 24px;
+            color: #10b981;
+        }
+
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .header p {
+            color: #9ca3af;
+            margin-top: 0.25rem;
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 320px;
+            background: #1f1f1f;
+            border-right: 1px solid #374151;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .sidebar h2 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .endpoint-list {
+            list-style: none;
+        }
+
+        .endpoint-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .endpoint-button {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem;
+            background: transparent;
+            border: none;
+            border-radius: 0.5rem;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .endpoint-button:hover {
+            background: #374151;
+        }
+
+        .endpoint-button.active {
+            background: #374151;
+            border: 1px solid #4b5563;
+        }
+
+        .method-badges {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .method-badge {
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .method-get { background: #059669; }
+        .method-post { background: #2563eb; }
+        .method-put { background: #d97706; }
+        .method-delete { background: #dc2626; }
+
+        .auth-badge {
+            padding: 0.125rem 0.5rem;
+            border: 1px solid #eab308;
+            color: #eab308;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+        }
+
+        .endpoint-path {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .endpoint-title {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .endpoint-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .endpoint-header .method-badges {
+            margin-bottom: 0.5rem;
+        }
+
+        .endpoint-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .endpoint-description {
+            color: #9ca3af;
+            font-size: 1rem;
+        }
+
+        .card {
+            background: rgba(31, 31, 31, 0.5);
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .parameter {
+            border-bottom: 1px solid #374151;
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .parameter:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .parameter-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .parameter-name {
+            background: #374151;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            color: #60a5fa;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+
+        .parameter-type {
+            padding: 0.125rem 0.5rem;
+            border: 1px solid #4b5563;
+            color: #9ca3af;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+        }
+
+        .required-badge {
+            background: #dc2626;
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+        }
+
+        .parameter-description {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        .tabs {
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-list {
+            display: flex;
+            background: #1f1f1f;
+            border: 1px solid #374151;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1rem;
+            background: transparent;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .tab-button.active {
+            background: #374151;
+            color: white;
+        }
+
+        .tab-content {
+            background: #1f1f1f;
+            border: 1px solid #374151;
+            border-top: none;
+            border-radius: 0 0 0.5rem 0.5rem;
+            padding: 1rem;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .code-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #d1d5db;
+        }
+
+        .copy-button {
+            background: transparent;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
+
+        .copy-button:hover {
+            color: white;
+        }
+
+        .code-block {
+            background: #111827;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: #d1d5db;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+        }
+
+        .status-codes {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .status-code {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background: #374151;
+        }
+
+        .status-200 { color: #10b981; }
+        .status-400 { color: #f59e0b; }
+        .status-500 { color: #ef4444; }
+
+        .status-description {
+            color: #d1d5db;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <svg class="header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+            <div>
+                <h1>Games API Documentation</h1>
+                <p>Complete reference for the Games API endpoints</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>Endpoints</h2>
+            <ul class="endpoint-list" id="endpointList">
+                <!-- Endpoints will be populated by JavaScript -->
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div id="endpointDetails">
+                <!-- Endpoint details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const endpoints = [
+            {
+                id: 'register',
+                method: 'POST',
+                path: '/register',
+                title: 'Register User',
+                description: 'Create a new user account with username and password',
+                parameters: [
+                    { name: 'username', type: 'string', required: true, description: 'Unique username for the account', location: 'body' },
+                    { name: 'password', type: 'string', required: true, description: 'Password for the account', location: 'body' }
+                ],
+                requestExample: `{
+  "username": "johndoe",
+  "password": "securepassword123"
+}`,
+                responseExample: `{
+  "success": "User added."
+}`,
+                statusCodes: [
+                    { code: 201, description: 'User created successfully' },
+                    { code: 500, description: 'Failed to update user data' },
+                    { code: 505, description: 'Username already taken' }
+                ]
+            },
+            {
+                id: 'login',
+                method: 'POST',
+                path: '/login',
+                title: 'Login User',
+                description: 'Authenticate user and receive JWT token',
+                parameters: [
+                    { name: 'username', type: 'string', required: true, description: 'Username for authentication', location: 'body' },
+                    { name: 'password', type: 'string', required: true, description: 'Password for authentication', location: 'body' }
+                ],
+                requestExample: `{
+  "username": "johndoe",
+  "password": "securepassword123"
+}`,
+                responseExample: `{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}`,
+                statusCodes: [
+                    { code: 200, description: 'Login successful, token returned' },
+                    { code: 400, description: 'Username does not exist' },
+                    { code: 401, description: 'Incorrect password' },
+                    { code: 500, description: 'Internal server error' }
+                ]
+            },
+            {
+                id: 'games',
+                method: 'GET',
+                path: '/games',
+                title: 'Get All Games',
+                description: 'Retrieve a list of all available games',
+                responseExample: `[
+  {
+    "id": 1,
+    "name": "The Witcher 3",
+    "rating": 9.3,
+    "summary": "An epic RPG adventure...",
+    "genres": ["RPG", "Action"],
+    "cover": "https://example.com/cover.jpg",
+    "release_date": "2015-05-19"
+  }
+]`,
+                statusCodes: [
+                    { code: 200, description: 'Successfully retrieved games list' }
+                ]
+            },
+            {
+                id: 'filter',
+                method: 'GET',
+                path: '/filter',
+                title: 'Filter Game by Name',
+                description: 'Find a specific game by name using AI-powered search',
+                parameters: [
+                    { name: 'name', type: 'string', required: true, description: 'Name or partial name of the game', location: 'query' }
+                ],
+                requestExample: `curl --location 'http://localhost:3000/filter?name=witcher'`,
+                responseExample: `{
+  "id": 1,
+  "name": "The Witcher 3",
+  "rating": 9.3,
+  "summary": "An epic RPG adventure...",
+  "genres": ["RPG", "Action"],
+  "cover": "https://example.com/cover.jpg",
+  "release_date": "2015-05-19"
+}`,
+                statusCodes: [
+                    { code: 200, description: 'Game found and returned' },
+                    { code: 400, description: 'Missing name query parameter' },
+                    { code: 404, description: 'Game not found' },
+                    { code: 500, description: 'Internal server error' }
+                ]
+            },
+            {
+                id: 'genres',
+                method: 'GET',
+                path: '/genres',
+                title: 'Get All Genres',
+                description: 'Retrieve a list of all unique game genres',
+                responseExample: `[
+  "RPG",
+  "Action",
+  "Adventure",
+  "Strategy",
+  "Simulation"
+]`,
+                statusCodes: [
+                    { code: 200, description: 'Successfully retrieved genres list' }
+                ]
+            },
+            {
+                id: 'random',
+                method: 'GET',
+                path: '/random',
+                title: 'Get Random Game',
+                description: 'Get a randomly selected game from the database',
+                responseExample: `{
+  "id": 5,
+  "name": "Cyberpunk 2077",
+  "rating": 7.8,
+  "summary": "An open-world action-adventure...",
+  "genres": ["RPG", "Action"],
+  "cover": "https://example.com/cyberpunk.jpg",
+  "release_date": "2020-12-10"
+}`,
+                statusCodes: [
+                    { code: 200, description: 'Random game returned successfully' }
+                ]
+            },
+            {
+                id: 'bygenre',
+                method: 'GET',
+                path: '/ByGenre',
+                title: 'Get Games by Genre',
+                description: 'Filter games by a specific genre',
+                parameters: [
+                    { name: 'genre', type: 'string', required: true, description: 'Genre to filter by', location: 'query' }
+                ],
+                requestExample: `curl --location 'http://localhost:3000/ByGenre?genre=RPG'`,
+                responseExample: `[
+  {
+    "id": 1,
+    "name": "The Witcher 3",
+    "rating": 9.3,
+    "genres": ["RPG", "Action"],
+    "release_date": "2015-05-19"
+  }
+]`,
+                statusCodes: [
+                    { code: 200, description: 'Games found for the genre' },
+                    { code: 404, description: 'Genre does not exist' }
+                ]
+            },
+            {
+                id: 'bydate',
+                method: 'GET',
+                path: '/ByDate',
+                title: 'Get Games by Release Date',
+                description: 'Filter games by their release date',
+                parameters: [
+                    { name: 'date', type: 'string', required: true, description: 'Release date in YYYY-MM-DD format', location: 'query' }
+                ],
+                requestExample: `curl --location 'http://localhost:3000/ByDate?date=2015-05-19'`,
+                responseExample: `[
+  {
+    "id": 1,
+    "name": "The Witcher 3",
+    "rating": 9.3,
+    "release_date": "2015-05-19"
+  }
+]`,
+                statusCodes: [
+                    { code: 200, description: 'Games found for the date' },
+                    { code: 404, description: 'No games found for this date' }
+                ]
+            },
+            {
+                id: 'dates',
+                method: 'GET',
+                path: '/dates',
+                title: 'Get All Release Dates',
+                description: 'Retrieve a list of all unique release dates',
+                responseExample: `[
+  "2015-05-19",
+  "2020-12-10",
+  "2018-10-26",
+  "2021-03-26"
+]`,
+                statusCodes: [
+                    { code: 200, description: 'Successfully retrieved dates list' }
+                ]
+            },
+            {
+                id: 'addgame',
+                method: 'POST',
+                path: '/addGame',
+                title: 'Add New Game',
+                description: 'Add a new game to the database (requires authentication)',
+                auth: true,
+                parameters: [
+                    { name: 'Authorization', type: 'string', required: true, description: 'Bearer token', location: 'header' },
+                    { name: 'name', type: 'string', required: true, description: 'Game name', location: 'body' },
+                    { name: 'rating', type: 'number', required: true, description: 'Game rating', location: 'body' },
+                    { name: 'summary', type: 'string', required: true, description: 'Game summary', location: 'body' },
+                    { name: 'genres', type: 'array', required: true, description: 'Array of genres', location: 'body' },
+                    { name: 'cover', type: 'string', required: true, description: 'Cover image URL', location: 'body' },
+                    { name: 'release_date', type: 'string', required: true, description: 'Release date', location: 'body' }
+                ],
+                requestExample: `{
+  "name": "New Game",
+  "rating": 8.5,
+  "summary": "An amazing new game...",
+  "genres": ["Action", "Adventure"],
+  "cover": "https://example.com/cover.jpg",
+  "release_date": "2024-01-15"
+}`,
+                responseExample: `{
+  "id": 10,
+  "name": "New Game",
+  "rating": 8.5,
+  "summary": "An amazing new game...",
+  "genres": ["Action", "Adventure"],
+  "cover": "https://example.com/cover.jpg",
+  "release_date": "2024-01-15"
+}`,
+                statusCodes: [
+                    { code: 200, description: 'Game added successfully' },
+                    { code: 401, description: 'Unauthorized - invalid token' },
+                    { code: 409, description: 'Game already exists' }
+                ]
+            },
+            {
+                id: 'chatbot',
+                method: 'POST',
+                path: '/chatbot',
+                title: 'Game Chatbot',
+                description: 'Chat with AI about games (requires authentication)',
+                auth: true,
+                parameters: [
+                    { name: 'Authorization', type: 'string', required: true, description: 'Bearer token', location: 'header' },
+                    { name: 'content', type: 'string', required: true, description: 'Message to send to chatbot', location: 'body' }
+                ],
+                requestExample: `{
+  "content": "What's the best RPG game?"
+}`,
+                responseExample: `{
+  "reply": "The Witcher 3 is widely considered one of the best RPG games with its immersive storytelling."
+}`,
+                statusCodes: [
+                    { code: 200, description: 'Chatbot response generated' },
+                    { code: 401, description: 'Unauthorized - invalid token' },
+                    { code: 500, description: 'Internal server error' }
+                ]
+            }
+        ];
+
+        let selectedEndpoint = null;
+        let activeTab = 'response';
+
+        function getMethodClass(method) {
+            return `method-${method.toLowerCase()}`;
+        }
+
+        function getStatusClass(code) {
+            if (code >= 200 && code < 300) return 'status-200';
+            if (code >= 400 && code < 500) return 'status-400';
+            if (code >= 500) return 'status-500';
+            return 'status-200';
+        }
+
+        function renderEndpointList() {
+            const endpointList = document.getElementById('endpointList');
+            endpointList.innerHTML = '';
+
+            endpoints.forEach(endpoint => {
+                const li = document.createElement('li');
+                li.className = 'endpoint-item';
+
+                const button = document.createElement('button');
+                button.className = `endpoint-button ${selectedEndpoint === endpoint.id ? 'active' : ''}`;
+                button.onclick = () => selectEndpoint(endpoint.id);
+
+                button.innerHTML = `
+                    <div class="method-badges">
+                        <span class="method-badge ${getMethodClass(endpoint.method)}">${endpoint.method}</span>
+                        ${endpoint.auth ? '<span class="auth-badge">AUTH</span>' : ''}
+                    </div>
+                    <div class="endpoint-path">${endpoint.path}</div>
+                    <div class="endpoint-title">${endpoint.title}</div>
+                `;
+
+                li.appendChild(button);
+                endpointList.appendChild(li);
+            });
+        }
+
+        function selectEndpoint(endpointId) {
+            selectedEndpoint = endpointId;
+            activeTab = 'response';
+            renderEndpointList();
+            renderEndpointDetails();
+        }
+
+        function renderEndpointDetails() {
+            const endpoint = endpoints.find(ep => ep.id === selectedEndpoint);
+            if (!endpoint) return;
+
+            const detailsContainer = document.getElementById('endpointDetails');
+            
+            let parametersHtml = '';
+            if (endpoint.parameters && endpoint.parameters.length > 0) {
+                parametersHtml = `
+                    <div class="card">
+                        <h3>Parameters</h3>
+                        <div class="parameters">
+                            ${endpoint.parameters.map(param => `
+                                <div class="parameter">
+                                    <div class="parameter-header">
+                                        <span class="parameter-name">${param.name}</span>
+                                        <span class="parameter-type">${param.type}</span>
+                                        <span class="parameter-type">${param.location}</span>
+                                        ${param.required ? '<span class="required-badge">Required</span>' : ''}
+                                    </div>
+                                    <p class="parameter-description">${param.description}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            const hasRequest = endpoint.requestExample;
+            
+            detailsContainer.innerHTML = `
+                <div class="endpoint-header">
+                    <div class="method-badges">
+                        <span class="method-badge ${getMethodClass(endpoint.method)}">${endpoint.method}</span>
+                        <code style="background: #1f1f1f; padding: 0.25rem 0.75rem; border-radius: 0.25rem; color: #10b981; font-family: monospace;">${endpoint.path}</code>
+                        ${endpoint.auth ? '<span class="auth-badge">Requires Authentication</span>' : ''}
+                    </div>
+                    <h1 class="endpoint-name">${endpoint.title}</h1>
+                    <p class="endpoint-description">${endpoint.description}</p>
+                </div>
+
+                ${parametersHtml}
+
+                <div class="card">
+                    <div class="tabs">
+                        <div class="tab-list">
+                            ${hasRequest ? `<button class="tab-button ${activeTab === 'request' ? 'active' : ''}" onclick="switchTab('request')">Example Request</button>` : ''}
+                            <button class="tab-button ${activeTab === 'response' ? 'active' : ''}" onclick="switchTab('response')">Example Response</button>
+                        </div>
+                        <div class="tab-content">
+                            ${hasRequest ? `
+                                <div class="${activeTab === 'request' ? '' : 'hidden'}" id="request-tab">
+                                    <div class="code-header">
+                                        <h4 class="code-title">Request</h4>
+                                        <button class="copy-button" onclick="copyToClipboard(\`${endpoint.requestExample.replace(/`/g, '\\`')}\`)">
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="code-block">
+                                        <pre>${endpoint.requestExample}</pre>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            <div class="${activeTab === 'response' ? '' : 'hidden'}" id="response-tab">
+                                <div class="code-header">
+                                    <h4 class="code-title">Response</h4>
+                                    <button class="copy-button" onclick="copyToClipboard(\`${endpoint.responseExample.replace(/`/g, '\\`')}\`)">
+                                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="code-block">
+                                    <pre>${endpoint.responseExample}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Response Codes</h3>
+                    <div class="status-codes">
+                        ${endpoint.statusCodes.map(status => `
+                            <div class="status-code">
+                                <span class="status-badge ${getStatusClass(status.code)}">${status.code}</span>
+                                <span class="status-description">${status.description}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function switchTab(tab) {
+            activeTab = tab;
+            renderEndpointDetails();
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Could add a toast notification here
+                console.log('Copied to clipboard');
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            selectedEndpoint = endpoints[0].id;
+            renderEndpointList();
+            renderEndpointDetails();
+        });
+    </script>
+</body>
+</html>
