@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games API Documentation</title>
+    <title>Game Explorer API Documentation</title>
+    <link rel="shortcut icon" href="./logo-dv.png" type="image/x-icon">
     <style>
+         @font-face {
+            font-family: blender;
+            src: url(./Blender-Pro-Book.ttf);
+         }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: blender, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: blender, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             color: #e5e5e5;
             min-height: 100vh;
@@ -116,6 +122,7 @@
         .method-get { background: #059669; }
         .method-post { background: #2563eb; }
         .method-put { background: #d97706; }
+        .method-patch { background: #ea580c; }
         .method-delete { background: #dc2626; }
 
         .auth-badge {
@@ -338,9 +345,7 @@
 <body>
     <div class="header">
         <div class="header-content">
-            <svg class="header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-            </svg>
+            <img src="./logo-dv.png" alt="" width="40" height="40">
             <div>
                 <h1>Games API Documentation</h1>
                 <p>Complete reference for the Games API endpoints</p>
@@ -376,8 +381,8 @@
                     { name: 'password', type: 'string', required: true, description: 'Password for the account', location: 'body' }
                 ],
                 requestExample: `{
-  "username": "johndoe",
-  "password": "securepassword123"
+  "username": "Youssef",
+  "password": "yousef182@"
 }`,
                 responseExample: `{
   "success": "User added."
@@ -399,8 +404,8 @@
                     { name: 'password', type: 'string', required: true, description: 'Password for authentication', location: 'body' }
                 ],
                 requestExample: `{
-  "username": "johndoe",
-  "password": "securepassword123"
+  "username": "Youssef",
+  "password": "yousef182@"
 }`,
                 responseExample: `{
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
@@ -422,11 +427,11 @@
   {
     "id": 1,
     "name": "The Witcher 3",
-    "rating": 9.3,
+    "rating": 90,
     "summary": "An epic RPG adventure...",
     "genres": ["RPG", "Action"],
     "cover": "https://example.com/cover.jpg",
-    "release_date": "2015-05-19"
+    "release_date": "2015"
   }
 ]`,
                 statusCodes: [
@@ -446,11 +451,11 @@
                 responseExample: `{
   "id": 1,
   "name": "The Witcher 3",
-  "rating": 9.3,
+  "rating": 90,
   "summary": "An epic RPG adventure...",
   "genres": ["RPG", "Action"],
   "cover": "https://example.com/cover.jpg",
-  "release_date": "2015-05-19"
+  "release_date": "2015"
 }`,
                 statusCodes: [
                     { code: 200, description: 'Game found and returned' },
@@ -485,11 +490,11 @@
                 responseExample: `{
   "id": 5,
   "name": "Cyberpunk 2077",
-  "rating": 7.8,
+  "rating": 78,
   "summary": "An open-world action-adventure...",
   "genres": ["RPG", "Action"],
   "cover": "https://example.com/cyberpunk.jpg",
-  "release_date": "2020-12-10"
+  "release_date": "2020"
 }`,
                 statusCodes: [
                     { code: 200, description: 'Random game returned successfully' }
@@ -509,9 +514,11 @@
   {
     "id": 1,
     "name": "The Witcher 3",
-    "rating": 9.3,
+    "rating": 90,
+    "summary": "An epic RPG adventure...",
     "genres": ["RPG", "Action"],
-    "release_date": "2015-05-19"
+    "cover": "https://example.com/cover.jpg",
+    "release_date": "2015"
   }
 ]`,
                 statusCodes: [
@@ -526,15 +533,17 @@
                 title: 'Get Games by Release Date',
                 description: 'Filter games by their release date',
                 parameters: [
-                    { name: 'date', type: 'string', required: true, description: 'Release date in YYYY-MM-DD format', location: 'query' }
+                    { name: 'date', type: 'string', required: true, description: 'Release date in YYYY format', location: 'query' }
                 ],
-                requestExample: `curl --location 'http://localhost:3000/ByDate?date=2015-05-19'`,
+                requestExample: `curl --location 'http://localhost:3000/ByDate?date=2015'`,
                 responseExample: `[
   {
     "id": 1,
     "name": "The Witcher 3",
-    "rating": 9.3,
-    "release_date": "2015-05-19"
+    "rating": 93,
+    "genres": ["RPG", "Action"],
+    "cover": "https://example.com/cover.jpg",
+    "release_date": "2015"
   }
 ]`,
                 statusCodes: [
@@ -549,10 +558,10 @@
                 title: 'Get All Release Dates',
                 description: 'Retrieve a list of all unique release dates',
                 responseExample: `[
-  "2015-05-19",
-  "2020-12-10",
-  "2018-10-26",
-  "2021-03-26"
+  "2015",
+  "2020",
+  "2018",
+  "2021"
 ]`,
                 statusCodes: [
                     { code: 200, description: 'Successfully retrieved dates list' }
@@ -576,25 +585,65 @@
                 ],
                 requestExample: `{
   "name": "New Game",
-  "rating": 8.5,
+  "rating": 85,
   "summary": "An amazing new game...",
   "genres": ["Action", "Adventure"],
   "cover": "https://example.com/cover.jpg",
-  "release_date": "2024-01-15"
+  "release_date": "2024"
 }`,
                 responseExample: `{
   "id": 10,
   "name": "New Game",
-  "rating": 8.5,
+  "rating": 85,
   "summary": "An amazing new game...",
   "genres": ["Action", "Adventure"],
   "cover": "https://example.com/cover.jpg",
-  "release_date": "2024-01-15"
+  "release_date": "2024"
 }`,
                 statusCodes: [
                     { code: 200, description: 'Game added successfully' },
                     { code: 401, description: 'Unauthorized - invalid token' },
                     { code: 409, description: 'Game already exists' }
+                ]
+            },
+            {
+                id: 'updategame',
+                method: 'PATCH',
+                path: '/updateGame',
+                title: 'Update Game',
+                description: 'Update an existing game in the database (requires authentication)',
+                auth: true,
+                parameters: [
+                    { name: 'Authorization', type: 'string', required: true, description: 'Bearer token', location: 'header' },
+                    { name: 'name', type: 'string', required: true, description: 'Game name (identifier)', location: 'body' },
+                    { name: 'rating', type: 'number', required: false, description: 'Updated game rating', location: 'body' },
+                    { name: 'summary', type: 'string', required: false, description: 'Updated game summary', location: 'body' },
+                    { name: 'genres', type: 'array', required: false, description: 'Updated array of genres', location: 'body' },
+                    { name: 'cover', type: 'string', required: false, description: 'Updated cover image URL', location: 'body' },
+                    { name: 'release_date', type: 'string', required: false, description: 'Updated release date', location: 'body' }
+                ],
+                requestExample: `{
+  "name": "The Witcher 3",
+  "rating": 95,
+  "summary": "An updated epic RPG adventure...",
+  "genres": ["RPG", "Action", "Adventure"]
+}`,
+                responseExample: `{
+  "success": "Updated by success",
+  "game": {
+    "id": 1,
+    "name": "The Witcher 3",
+    "rating": 955,
+    "summary": "An updated epic RPG adventure...",
+    "genres": ["RPG", "Action", "Adventure"],
+    "cover": "https://example.com/cover.jpg",
+    "release_date": "2015"
+  }
+}`,
+                statusCodes: [
+                    { code: 200, description: 'Game updated successfully' },
+                    { code: 401, description: 'Unauthorized - invalid token' },
+                    { code: 404, description: 'Game not found' }
                 ]
             },
             {

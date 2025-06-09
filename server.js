@@ -12,6 +12,7 @@ const port = 5000;
 const saltRounds=10;
 env.config();
 app.use(express.json());
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 
@@ -29,7 +30,9 @@ const writeFileGame=(data)=>{
     fs.writeFileSync('gamesFixed.json', JSON.stringify(data, null, 2));
 }
 app.use(openFileGame)
-
+app.get("/",(req,res)=>{
+  res.render("home.ejs")
+})
 
 app.post("/register",async(req,res)=>{
     const users=await getData();
@@ -229,7 +232,7 @@ app.patch("/updateGame",authenticate,(req,res)=>{
   };
   games[index] = updatedGame;
   writeFileGame(games);
-  res.json({ success: "Game updated", game: updatedGame });
+  res.json({ success: "Updated by success", game: updatedGame });
 });
 
 app.listen(port,()=>{
