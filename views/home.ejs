@@ -447,7 +447,7 @@
                 parameters: [
                     { name: 'name', type: 'string', required: true, description: 'Name or partial name of the game', location: 'query' }
                 ],
-                requestExample: `curl --location 'http://localhost:3000/filter?name=witcher'`,
+                requestExample: `curl --location 'https://api-games-hawy.onrender.com/filter?name=witcher'`,
                 responseExample: `{
   "id": 1,
   "name": "The Witcher 3",
@@ -509,7 +509,7 @@
                 parameters: [
                     { name: 'genre', type: 'string', required: true, description: 'Genre to filter by', location: 'query' }
                 ],
-                requestExample: `curl --location 'http://localhost:3000/ByGenre?genre=RPG'`,
+                requestExample: `curl --location 'https://api-games-hawy.onrender.com/ByGenre?genre=RPG'`,
                 responseExample: `[
   {
     "id": 1,
@@ -535,7 +535,7 @@
                 parameters: [
                     { name: 'date', type: 'string', required: true, description: 'Release date in YYYY format', location: 'query' }
                 ],
-                requestExample: `curl --location 'http://localhost:3000/ByDate?date=2015'`,
+                requestExample: `curl --location 'https://api-games-hawy.onrender.com/ByDate?date=2015'`,
                 responseExample: `[
   {
     "id": 1,
