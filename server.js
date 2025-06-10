@@ -195,7 +195,7 @@ app.post("/chatbot", authenticate,async (req, res) => {
       messages: [
         {
           role: "system",
-          content: `You are a helpful assistant focused only on games no other topics . Here's a summary of past conversation: ${memory_summary}`
+          content: `You are a helpful assistant focused only on games no other topics.Answer in one line only . Here's a summary of past conversation: ${memory_summary}`
         },
         {
           role: "user",
