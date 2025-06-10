@@ -183,32 +183,55 @@ app.post("/addGame",authenticate,(req,res)=>{
        return res.status(409).json({error:"the game already exist"})
     }
 })
-app.post("/chatbot",authenticate,async(req,res)=>{
-  let content=req.body.content
-  try{
-  const response = await client.chat.completions.create({
-  model: "gpt-4.1-mini",
-  max_tokens: 60,
-  temperature: 0,
-  messages: [
-    {
-      role:"system",
-      content:"Answer only about games.Keep the response to one line."
-    },
-    {
-      role: "user",
-      content: content
-    },
-    ]
+app.post("/chatbot", async (req, res) => {
+  const user_input = req.body.content;
+  const memory_summary = req.body.summary || "Nothing discussed yet.";
+  try {
+    const response = await client.chat.completions.create({
+      model: "gpt-4.1-mini",
+      max_tokens: 60,
+      temperature: 0,
+      messages: [
+        {
+          role: "system",
+          content: `You are a game assistant. Here's a summary of past conversation: ${memory_summary}`
+        },
+        {
+          role: "user",
+          content: user_input
+        }
+      ]
     });
-    
-    const result=response.choices[0].message.content;
-    res.json({reply:result})
-  }catch(err){
-    console.log(err.message)
-    res.status(500).json({error:"Internal server error"})
+
+    const ai_reply = response.choices[0].message.content;
+
+   
+    const summary_response = await client.chat.completions.create({
+      model: "gpt-4.1-mini",
+      max_tokens: 60,
+      temperature: 0.3,
+      messages: [
+        {
+          role: "system",
+          content: "Summarize the following conversation about games in one line."
+        },
+        {
+          role: "user",
+          content: `Previous summary: ${memory_summary}\nUser: ${user_input}\nBot: ${ai_reply}\nNew summary:`
+        }
+      ]
+    });
+
+    memory_summary = summary_response.choices[0].message.content;
+
+    res.json({ reply: ai_reply , summary: `${summary} | User: ${content} -> AI: ${result}` });
+
+  } catch (err) {
+    console.error("AI Error:", err.message);
+    res.status(500).json({ error: "Internal server error" });
   }
-})
+});
+
 app.patch("/updateGame",authenticate,(req,res)=>{
   const { name, rating, summary, genres, cover, release_date } = req.body;
   const games = req.games;
