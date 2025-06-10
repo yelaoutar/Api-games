@@ -183,7 +183,7 @@ app.post("/addGame",authenticate,(req,res)=>{
        return res.status(409).json({error:"the game already exist"})
     }
 })
-app.post("/chatbot", async (req, res) => {
+app.post("/chatbot", authenticate,async (req, res) => {
   const user_input = req.body.content;
   const memory_summary = req.body.summary || "Nothing discussed yet.";
 
@@ -195,7 +195,7 @@ app.post("/chatbot", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: `You are a game assistant. Here's a summary of past conversation: ${memory_summary}`
+          content: `You are a helpful assistant focused only on games no other topics . Here's a summary of past conversation: ${memory_summary}`
         },
         {
           role: "user",
@@ -221,9 +221,7 @@ app.post("/chatbot", async (req, res) => {
         }
       ]
     });
-
     const summary = summary_response.choices[0].message.content;
-
     res.json({
       reply: ai_reply,
       summary: `${summary} | User: ${user_input} -> AI: ${ai_reply}`
