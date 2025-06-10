@@ -222,7 +222,7 @@ app.post("/chatbot", async (req, res) => {
       ]
     });
 
-    memory_summary = summary_response.choices[0].message.content;
+    
 
     res.json({ reply: ai_reply , summary: `${summary} | User: ${content} -> AI: ${result}` });
 
