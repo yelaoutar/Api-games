@@ -186,6 +186,7 @@ app.post("/addGame",authenticate,(req,res)=>{
 app.post("/chatbot", async (req, res) => {
   const user_input = req.body.content;
   const memory_summary = req.body.summary || "Nothing discussed yet.";
+
   try {
     const response = await client.chat.completions.create({
       model: "gpt-4.1-mini",
@@ -205,7 +206,6 @@ app.post("/chatbot", async (req, res) => {
 
     const ai_reply = response.choices[0].message.content;
 
-   
     const summary_response = await client.chat.completions.create({
       model: "gpt-4.1-mini",
       max_tokens: 60,
@@ -222,12 +222,15 @@ app.post("/chatbot", async (req, res) => {
       ]
     });
 
-    
+    const summary = summary_response.choices[0].message.content;
 
-    res.json({ reply: ai_reply , summary: `${summary} | User: ${content} -> AI: ${result}` });
+    res.json({
+      reply: ai_reply,
+      summary: `${summary} | User: ${user_input} -> AI: ${ai_reply}`
+    });
 
   } catch (err) {
-    console.error("AI Error:", err.message);
+    console.log(err.message);
     res.status(500).json({ error: "Internal server error" });
   }
 });
