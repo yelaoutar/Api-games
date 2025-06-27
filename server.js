@@ -2,10 +2,10 @@ import express from "express";
 import env from "dotenv";
 import fs from "fs";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
-import authenticate from "./auth.js";
+import authenticate from "./middlewares/auth.js";
 import OpenAI from "openai";
 import {getData,UpdateData} from "./FetchUserData.js"
+import cors from "cors"
 
 const app = express();
 const port = 5000;
@@ -14,6 +14,7 @@ env.config();
 app.use(express.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 
 
@@ -60,25 +61,6 @@ app.post("/register",async(req,res)=>{
         res.status(505).json({error:"Username has been taken already"})
     }
 })
-app.post("/login", async(req, res) => {
-  const { username, password } = req.body;
-  const users = await getData();
-  const foundUser = users.find(user => user.username === username);
-  if (!foundUser){
-    return res.status(400).json({ error: "Username doesn't exist, register first" });
-  }
-  bcrypt.compare(password, foundUser.password, (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: "internal server error during password verification" });
-    }
-    if (result) {
-      const token = jwt.sign({ name: foundUser.username}, process.env.ACCESS_TOKEN_SECRET);
-      return res.json({ token });
-    } else {
-      return res.status(401).json({ error: "The password is incorrect" });
-    }
-  });
-});
 app.get("/games",(req,res)=>{
     res.json(req.games)
 })

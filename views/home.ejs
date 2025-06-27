@@ -357,13 +357,13 @@
         <div class="sidebar">
             <h2>Endpoints</h2>
             <ul class="endpoint-list" id="endpointList">
-                <!-- Endpoints will be populated by JavaScript -->
+            
             </ul>
         </div>
 
         <div class="main-content">
             <div id="endpointDetails">
-                <!-- Endpoint details will be populated by JavaScript -->
+                
             </div>
         </div>
     </div>
@@ -821,7 +821,6 @@
 
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                // Could add a toast notification here
                 console.log('Copied to clipboard');
             });
         }
