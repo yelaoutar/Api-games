@@ -4,8 +4,11 @@ import fs from "fs";
 import bcrypt from "bcrypt";
 import authenticate from "./middlewares/auth.js";
 import OpenAI from "openai";
-import {getData,UpdateData} from "./FetchUserData.js"
-import cors from "cors"
+import {getData,UpdateData} from "./FetchUserData.js";
+import cors from "cors";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+
 
 const app = express();
 const port = 5000;
@@ -15,8 +18,20 @@ app.use(express.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(helmet());
 
+const limiter=rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  message: { error: 'Too many requests, please try again later.' },
+  store: new RedisStore({
+		sendCommand: (...args) => client.sendCommand(args),
+	}),
+})
 
+app.use(limiter)
 
 //config ai:
 const client = new OpenAI({

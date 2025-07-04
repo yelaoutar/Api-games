@@ -14,7 +14,6 @@ export async function getData(){
     } 
     
 }
-
 export async function UpdateData(data) {
     try{
         const response=await axios.put(urlPut,data,{

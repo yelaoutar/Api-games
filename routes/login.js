@@ -13,7 +13,7 @@ router.post("/login", async(req, res) => {
   const users = await getData();
   const foundUser = users.find(user => user.username === username);
   if (!foundUser){
-    return res.status(400).json({ error: "Username doesn't exist, register first" });
+    return res.status(400).json({ error: "Username doesn't exist register first" });
   }
   bcrypt.compare(password, foundUser.password, async(err, result) => {
     if (err) {
